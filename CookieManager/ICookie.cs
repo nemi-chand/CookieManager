@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace CookieManager
 {
+
+    /// <summary>
+    /// ICookie is absstraction layer on top of ASP.Net Core Cookie API
+    /// </summary>
     public interface ICookie
     {
 
@@ -21,22 +25,29 @@ namespace CookieManager
         string Get(string key);
 
         /// <summary>
-        /// 
+        /// Sets the cookie 
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="value">value of the key</param>
+        /// <param name="expireTime">cookie expire time</param>
+        void Set(string key, string value, int? expireTime);
+
+        /// <summary>
+        /// Contain the key
+        /// </summary>
+        /// <param name="key">Key</param>
+        /// <returns>bool</returns>
+        bool Contains(string key);
+
+        /// <summary>
+        /// delete the key from cookie 
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="expireTime"></param>
-        void Set(string key, string value, int? expireTime);
+        void Remove(string key);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        bool Contains(string key);
-
-        void Remove(string key);
-
         bool IsHttpOnly { get; }
 
 
