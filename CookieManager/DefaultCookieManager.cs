@@ -3,7 +3,10 @@ using System;
 
 namespace CookieManager
 {
-    public class DefaultCookieManager : ICookieManager
+	/// <summary>
+	/// Implementation of <see cref="ICookieManager" /> 
+	/// </summary>
+	public class DefaultCookieManager : ICookieManager
     {
         private ICookie _cookie;
 
@@ -20,6 +23,14 @@ namespace CookieManager
             return _cookie.Contains(key);
         }
 
+		/// <summary>
+		/// Get the value or set the value if specified key is expire
+		/// </summary>
+		/// <typeparam name="T">TSource</typeparam>
+		/// <param name="key">Key</param>
+		/// <param name="acquirer">action to execute</param>
+		/// <param name="expireTime">Expire time</param>
+		/// <returns>TSource object</returns>
         public T GetOrSet<T>(string key, Func<T> acquirer, int? expireTime = default(int?))
         {
             if(_cookie.Contains(key))
@@ -48,22 +59,43 @@ namespace CookieManager
             return JsonConvert.DeserializeObject<T>(_cookie.Get(key));
         }
 
+		/// <summary>
+		/// remove the key
+		/// </summary>
+		/// <param name="key"></param>
         public void Remove(string key)
         {
             _cookie.Remove(key);
         }
 
+		/// <summary>
+		/// set the value 
+		/// </summary>
+		/// <param name="key">key</param>
+		/// <param name="value">value</param>
+		/// <param name="expireTime"></param>
         public void Set(string key, object value, int? expireTime = default(int?))
         {
             _cookie.Set(key, JsonConvert.SerializeObject(value), expireTime);
         }
 
+		/// <summary>
+		/// get the value of specified key
+		/// </summary>
+		/// <param name="key">Key</param>
+		/// <returns>string</returns>
         public string Get(string key)
         {
             return _cookie.Get(key);
         }
 
-        public T Get<T>(string key)
+		/// <summary>
+		/// get the value of specified key
+		/// </summary>
+		/// <typeparam name="T">T object</typeparam>
+		/// <param name="key">Key</param>
+		/// <returns>T object</returns>
+		public T Get<T>(string key)
         {
             return GetExisting<T>(key);
         }

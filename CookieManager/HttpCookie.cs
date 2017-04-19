@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace CookieManager
 {
-    public class HttpCookie : ICookie
+	/// <summary>
+	/// Implementation of <see cref="ICookie" /> 
+	/// </summary>
+	public class HttpCookie : ICookie
     {
         private IHttpContextAccessor _httpContext;
 
-        public HttpCookie(IHttpContextAccessor httpContext)
+		/// <summary>
+		/// External depedenacy of <see cref="IHttpContextAccessor" /> 
+		/// </summary>
+		/// <param name="httpContext"></param>
+		public HttpCookie(IHttpContextAccessor httpContext)
         {
             this._httpContext = httpContext;
         }
@@ -24,16 +31,31 @@ namespace CookieManager
             return _httpContext.HttpContext.Request.Cookies.ContainsKey(key);
         }
 
+		/// <summary>
+		/// Get the key value
+		/// </summary>
+		/// <param name="key">Key</param>
+		/// <returns>value</returns>
         public string Get(string key)
         {
             return _httpContext.HttpContext.Request.Cookies[key];
         }
 
+		/// <summary>
+		/// Remove the cookie key
+		/// </summary>
+		/// <param name="key">Key</param>
         public void Remove(string key)
         {
             _httpContext.HttpContext.Response.Cookies.Delete(key);
         }
 
+		/// <summary>
+		/// set the cookie
+		/// </summary>
+		/// <param name="key">unique key</param>
+		/// <param name="value">value to store</param>
+		/// <param name="expireTime">Expire time (default time is 10 millisencond)</param>
         public void Set(string key, string value, int? expireTime)
         {
             CookieOptions option = new CookieOptions();
