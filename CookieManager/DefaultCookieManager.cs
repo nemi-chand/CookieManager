@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace CookieManager
 {
@@ -99,5 +100,28 @@ namespace CookieManager
         {
             return GetExisting<T>(key);
         }
-    }
+
+		public void Set(string key, object value, CookieOptions option)
+		{
+			_cookie.Set(key, JsonConvert.SerializeObject(value), option);
+		}
+
+		public T GetOrSet<T>(string key, Func<T> acquirer, CookieOptions option)
+		{
+			if (_cookie.Contains(key))
+			{
+				//get the existing value
+				GetExisting<T>(key);
+			}
+			else
+			{
+				var value = acquirer();
+				this.Set(key, value, option);
+
+				return value;
+			}
+
+			return GetExisting<T>(key);
+		}
+	}
 }

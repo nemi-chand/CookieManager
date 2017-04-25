@@ -69,5 +69,18 @@ namespace CookieManager
 
             _httpContext.HttpContext.Response.Cookies.Append(key, value, option);
         }
-    }
+
+		/// <summary>
+		/// set the cookie 
+		/// </summary>
+		/// <param name="key">key</param>
+		/// <param name="value">value of the specified key</param>
+		/// <param name="option">CookieOption</param>
+		public void Set(string key, string value, CookieOptions option)
+		{			
+			option.HttpOnly = IsHttpOnly;
+
+			_httpContext.HttpContext.Response.Cookies.Append(key, value, option);
+		}
+	}
 }
