@@ -10,14 +10,7 @@ namespace CookieManager
     /// Cookie Manager is abstraction layer on top of <see cref="ICookie" />
     /// </summary>
     public interface ICookieManager
-    {        
-        /// <summary>
-        /// Gets a cookie associated with key
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        string Get(string key);
-
+    {   
         /// <summary>
         /// Gets a cookie associated with key 
         /// </summary>

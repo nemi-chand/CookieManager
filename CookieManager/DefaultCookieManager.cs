@@ -78,16 +78,7 @@ namespace CookieManager
             _cookie.Set(key, JsonConvert.SerializeObject(value), expireTime);
         }
 
-		/// <summary>
-		/// get the value of specified key
-		/// </summary>
-		/// <param name="key">Key</param>
-		/// <returns>string</returns>
-        public string Get(string key)
-        {
-            return _cookie.Get(key);
-        }
-
+		
 		/// <summary>
 		/// get the value of specified key
 		/// </summary>
