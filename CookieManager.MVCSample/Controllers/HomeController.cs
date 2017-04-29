@@ -35,6 +35,8 @@ namespace CookieManager.MVCSample.Controllers
 										};
 
 									},new CookieOptions() { HttpOnly = true,Expires = DateTime.Now.AddDays(1) });
+
+
 			
 
 			return View();
