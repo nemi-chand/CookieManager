@@ -24,8 +24,6 @@ namespace CookieManager
 
         public ICollection<string> Keys { get { return _httpContext.HttpContext.Request.Cookies.Keys; } }
 
-        public bool IsHttpOnly { get; set ; }
-
         public bool Contains(string key)
         {            
             return _httpContext.HttpContext.Request.Cookies.ContainsKey(key);
@@ -59,7 +57,6 @@ namespace CookieManager
         public void Set(string key, string value, int? expireTime)
         {
             CookieOptions option = new CookieOptions();
-            option.HttpOnly = IsHttpOnly;
 
             if (expireTime.HasValue)
                 option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
@@ -77,9 +74,7 @@ namespace CookieManager
 		/// <param name="value">value of the specified key</param>
 		/// <param name="option">CookieOption</param>
 		public void Set(string key, string value, CookieOptions option)
-		{			
-			option.HttpOnly = IsHttpOnly;
-
+		{
 			_httpContext.HttpContext.Response.Cookies.Append(key, value, option);
 		}
 	}

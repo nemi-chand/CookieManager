@@ -74,8 +74,5 @@ namespace CookieManager
         /// </summary>
         /// <param name="key"></param>
         void Remove(string key);
-
-
-        bool IsHttpOnly { get; set; }
     }
 }

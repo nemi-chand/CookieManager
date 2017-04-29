@@ -11,8 +11,6 @@ namespace CookieManager
     {
         private ICookie _cookie;
 
-        public bool IsHttpOnly { get ; set ; }
-
         public DefaultCookieManager(ICookie cookie)
         {
             this._cookie = cookie;
