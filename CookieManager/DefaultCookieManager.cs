@@ -35,7 +35,7 @@ namespace CookieManager
             if(_cookie.Contains(key))
             {
                 //get the existing value
-                GetExisting<T>(key);
+               return GetExisting<T>(key);
             }
             else
             {
