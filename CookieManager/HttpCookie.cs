@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +12,19 @@ namespace CookieManager
 	/// </summary>
 	public class HttpCookie : ICookie
     {
-        private IHttpContextAccessor _httpContext;
+        private readonly IHttpContextAccessor _httpContext;
+		private readonly IDataProtector _dataProtector;
+		private static readonly string Purpose = "CookieManager.Token.v1";
 
 		/// <summary>
 		/// External depedenacy of <see cref="IHttpContextAccessor" /> 
 		/// </summary>
 		/// <param name="httpContext"></param>
-		public HttpCookie(IHttpContextAccessor httpContext)
+		public HttpCookie(IHttpContextAccessor httpContext, IDataProtectionProvider dataProtectionProvider)
         {
             this._httpContext = httpContext;
-        }
+			_dataProtector = dataProtectionProvider.CreateProtector(Purpose);
+		}
 
         public ICollection<string> Keys { get { return _httpContext.HttpContext.Request.Cookies.Keys; } }
 
@@ -36,7 +40,15 @@ namespace CookieManager
 		/// <returns>value</returns>
         public string Get(string key)
         {
-            return _httpContext.HttpContext.Request.Cookies[key];
+			if (Contains(key))
+			{
+				var encodedValue = _httpContext.HttpContext.Request.Cookies[key];
+				var protectedData = Base64TextEncoder.Decode(encodedValue);
+				var unprotectedData = _dataProtector.Unprotect(protectedData);
+				return unprotectedData;
+			}
+
+			return string.Empty;
         }
 
 		/// <summary>
@@ -56,15 +68,8 @@ namespace CookieManager
 		/// <param name="expireTime">Expire time (default time is 10 millisencond)</param>
         public void Set(string key, string value, int? expireTime)
         {
-            CookieOptions option = new CookieOptions();
-
-            if (expireTime.HasValue)
-                option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
-            else
-                option.Expires = DateTime.Now.AddMilliseconds(10);
-
-
-            _httpContext.HttpContext.Response.Cookies.Append(key, value, option);
+			//validate input TODO
+			Set(key, value, null, expireTime);
         }
 
 		/// <summary>
@@ -75,7 +80,26 @@ namespace CookieManager
 		/// <param name="option">CookieOption</param>
 		public void Set(string key, string value, CookieOptions option)
 		{
-			_httpContext.HttpContext.Response.Cookies.Append(key, value, option);
+			Set(key, value, option, null);
+		}
+
+		private void Set(string key, string value, CookieOptions option, int? expireTime)
+		{
+			if(option == null)
+			{
+				option = new CookieOptions();
+
+				if (expireTime.HasValue)
+					option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
+				else
+					option.Expires = DateTime.Now.AddSeconds(10);
+			}
+
+			
+			string protecetedData = _dataProtector.Protect(value);
+			var encodedValue = Base64TextEncoder.Encode(protecetedData);
+
+			_httpContext.HttpContext.Response.Cookies.Append(key, encodedValue, option);
 		}
 	}
 }

@@ -55,7 +55,7 @@ namespace CookieManager
             if (string.IsNullOrEmpty(value))
                 return default(T);
 
-            return JsonConvert.DeserializeObject<T>(_cookie.Get(key));
+            return JsonConvert.DeserializeObject<T>(value);
         }
 
 		/// <summary>
@@ -100,7 +100,7 @@ namespace CookieManager
 			if (_cookie.Contains(key))
 			{
 				//get the existing value
-				GetExisting<T>(key);
+				return GetExisting<T>(key);
 			}
 			else
 			{
