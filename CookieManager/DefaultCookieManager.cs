@@ -9,7 +9,7 @@ namespace CookieManager
 	/// </summary>
 	public class DefaultCookieManager : ICookieManager
     {
-        private ICookie _cookie;
+        private readonly ICookie _cookie;
 
         public DefaultCookieManager(ICookie cookie)
         {

@@ -19,5 +19,20 @@ namespace CookieManager
 			return Convert.ToBase64String(bytes);
 		}
 
+		public static bool TryDecode(string encodedText,out string plainText)
+		{
+			plainText = string.Empty;
+			try
+			{
+				plainText = Decode(encodedText);
+				return true;
+			}
+			catch (Exception)
+			{
+			}
+
+			return false;
+		}
+
 	}
 }
