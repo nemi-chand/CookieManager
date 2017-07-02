@@ -34,7 +34,7 @@ namespace CookieManager
 		/// </summary>
 		/// <typeparam name="T">TSource</typeparam>
 		/// <param name="key">Key</param>
-		/// <param name="acquirer">function</param>
+		/// <param name="acquirer">if cookie is expired than it execute to acquire function and set the cookie</param>
 		/// <param name="option">cookie option</param>
 		/// <returns></returns>
 		T GetOrSet<T>(string key, Func<T> acquirer, CookieOptions option);

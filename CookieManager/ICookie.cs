@@ -14,7 +14,7 @@ namespace CookieManager
     {
 
         /// <summary>
-        /// 
+        /// gets all key's
         /// </summary>
         ICollection<string> Keys { get; }
 

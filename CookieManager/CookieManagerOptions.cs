@@ -7,10 +7,14 @@ namespace CookieManager
     public class CookieManagerOptions
     {
 		/// <summary>
-		/// allow cookie to encrypt by default it allow encryption
+		/// allow cookie data to encrypt by default it allow encryption
 		/// </summary>
 		public bool AllowEncryption { get; set; } = true;
 
+		/// <summary>
+		/// Default Cookie expire time if expire time set to null of cookie
+		/// default time is 1 day to expire cookie 
+		/// </summary>
 		public int DefaultExpireTimeInDays { get; set; } = 1;
 
 		/// <summary>
