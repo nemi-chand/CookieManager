@@ -11,7 +11,7 @@ ASP.Net Core Abstraction layer on top of Cookie .  ASP.NET Core Wrapper to read 
 
 Nuget Package :  https://www.nuget.org/packages/CookieManager/
 ```csharp
-Install-Package CookieManager
+Install-Package CookieManager -Pre
 ```
 
 ## Usages
