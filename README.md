@@ -16,7 +16,7 @@ Install-Package CookieManager -Pre
 
 ## Usages
 
-### ICookieManager interfacae
+### ICookieManager interface
 
 ```csharp
 public class MyCookie
@@ -55,7 +55,7 @@ MyCookie myCook = _cookieManager.GetOrSet<MyCookie>("Key", () =>
 }, new CookieOptions() { HttpOnly = true, Expires = DateTime.Now.AddDays(1) });
 
 ```
-### ICookie interfacae
+### ICookie interface
 
 ```csharp
 //Gets a cookie item associated with key
