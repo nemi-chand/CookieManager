@@ -13,6 +13,10 @@ Nuget Package :  https://www.nuget.org/packages/CookieManager/
 ```csharp
 Install-Package CookieManager -Pre
 ```
+.NET CLI
+```csharp
+dotnet add package CookieManager --version 1.0.0-alpha
+```
 
 ## Usages
 
