@@ -11,12 +11,16 @@ ASP.Net Core Abstraction layer on top of Cookie .  ASP.NET Core Wrapper to read 
 
 Nuget Package :  https://www.nuget.org/packages/CookieManager/
 ```csharp
-Install-Package CookieManager
+Install-Package CookieManager -Pre
+```
+.NET CLI
+```csharp
+dotnet add package CookieManager --version 1.0.0-alpha
 ```
 
 ## Usages
 
-### ICookieManager interfacae
+### ICookieManager interface
 
 ```csharp
 public class MyCookie
@@ -55,7 +59,7 @@ MyCookie myCook = _cookieManager.GetOrSet<MyCookie>("Key", () =>
 }, new CookieOptions() { HttpOnly = true, Expires = DateTime.Now.AddDays(1) });
 
 ```
-### ICookie interfacae
+### ICookie interface
 
 ```csharp
 //Gets a cookie item associated with key
