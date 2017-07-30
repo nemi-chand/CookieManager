@@ -19,7 +19,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CookieManager\CookieManager.csproj" />
+    <ProjectReference Include="..\..\src\CookieManager\CookieManager.csproj" />
   </ItemGroup>
 
 </Project>

@@ -90,8 +90,11 @@ namespace CookieManager
 				//may change the allow encryption to avoid this first check if cookie value is able to decode than unprotect tha data
 				if(Base64TextEncoder.TryDecode(encodedValue,out protectedData))
 				{
-					var unprotectedData = _dataProtector.Unprotect(protectedData);
-					return unprotectedData;
+					string unprotectedData;
+					if(_dataProtector.TryUnprotect(protectedData, out unprotectedData))
+					{
+						return unprotectedData;
+					}
 				}
 				return encodedValue;
 			}

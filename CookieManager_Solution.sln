@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieManager", "CookieManager\CookieManager.csproj", "{3FFA196A-F0FA-4E58-B62D-35191A4CB3BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieManager", "src\CookieManager\CookieManager.csproj", "{3FFA196A-F0FA-4E58-B62D-35191A4CB3BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieManager.MVCSample", "CookieManager.MVCSample\CookieManager.MVCSample.csproj", "{E2E42AB4-99E7-4899-9B8A-C98E8A158640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieManager.MVCSample", "samples\CookieManager.MVCSample\CookieManager.MVCSample.csproj", "{E2E42AB4-99E7-4899-9B8A-C98E8A158640}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A11570E5-2062-4BEA-A73D-EB835CDD8DA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{FC67A254-12A0-47CC-AA8E-26BA0E4C41CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +28,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3FFA196A-F0FA-4E58-B62D-35191A4CB3BB} = {A11570E5-2062-4BEA-A73D-EB835CDD8DA7}
+		{E2E42AB4-99E7-4899-9B8A-C98E8A158640} = {FC67A254-12A0-47CC-AA8E-26BA0E4C41CF}
 	EndGlobalSection
 EndGlobal

@@ -31,7 +31,23 @@ namespace CookieManager.MVCSample
             services.AddMvc();
 
 			//add CookieManager
-			services.AddCookieManager();
+			//services.AddCookieManager();
+
+			//or
+
+			//add CookieManager with options
+			services.AddCookieManager(options => 
+			{
+				//allow cookie data to encrypt by default it allow encryption
+				options.AllowEncryption = false;
+				//Throw if not all chunks of a cookie are available on a request for re-assembly.
+				options.ThrowForPartialCookies = true;
+				// set null if not allow to devide in chunks
+				//options.ChunkSize = null;
+				//Default Cookie expire time if expire time set to null of cookie
+				//default time is 1 day to expire cookie 
+				options.DefaultExpireTimeInDays = 10;
+			});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
