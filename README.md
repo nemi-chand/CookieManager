@@ -1,6 +1,8 @@
 # Cookie Manager
 ASP.Net Core Abstraction layer on top of Cookie .  ASP.NET Core Wrapper to read and write the cookie.
 
+[![NuGet Package](https://img.shields.io/nuget/v/cookiemanager.svg)](https://www.nuget.org/packages/CookieManager/)
+
 # Features
 
   - Strongly Typed : CookieManager interface allows you to play with generic object. You don't have to care about casting or serialization.
