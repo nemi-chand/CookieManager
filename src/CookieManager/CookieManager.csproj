@@ -1,20 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <!--<TargetFramework>netcoreapp1.0</TargetFramework>-->
+    <TargetFrameworks>netstandard1.6;netstandard2.0</TargetFrameworks>
     <RepositoryUrl>https://github.com/nemi-chand/CookieManager</RepositoryUrl>
     <PackageProjectUrl>https://github.com/nemi-chand/CookieManager</PackageProjectUrl>
     <Description>ASP.Net Core Abstraction layer on top of Http Cookie</Description>
     <Authors>Nemi Chand</Authors>
-    <Version>1.0.0</Version>
+    <Version>2.0.0-pre</Version>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageTags>CookieManager,asp.net core cookie,cookie,http cookie</PackageTags>
-    <PackageReleaseNotes>Performance improvements and refectoring</PackageReleaseNotes>
+    <PackageTags>Cookie Manager,asp.net core cookie,cookie,http cookie,secure cookie</PackageTags>
+    <PackageReleaseNotes>Added support netstandard 1.6 and netstandard 2.0</PackageReleaseNotes>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-
-  <ItemGroup>
+  
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
+	  <DefineConstants>NETCORE1_0</DefineConstants>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1'">
+	  <DefineConstants>NETCORE1_1</DefineConstants>
+  </PropertyGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+  
+
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 

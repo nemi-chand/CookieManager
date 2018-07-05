@@ -1,4 +1,5 @@
 ﻿using CookieManager;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(services));
             }
 
-            services.TryAdd(ServiceDescriptor.Transient<ICookie, HttpCookie>());
-            services.TryAdd(ServiceDescriptor.Transient<ICookieManager, DefaultCookieManager>());
+			//IHttpContextAccessor is no longer injected by default
+			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+			//need to add data protection
+			services.AddDataProtection();
+
+			services.TryAddTransient<ICookie, HttpCookie>();
+			services.TryAddTransient<ICookieManager, DefaultCookieManager>();
 
             return services;
         }
