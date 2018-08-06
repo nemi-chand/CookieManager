@@ -1,6 +1,7 @@
 # Cookie Manager
 ASP.Net Core Abstraction layer on top of Cookie .  ASP.NET Core Wrapper to read and write the cookie.
 
+[![License](https://img.shields.io/badge/license-apache%202.0-60C060.svg)](https://github.com/nemi-chand/CookieManager/blob/master/LICENSE)
 [![NuGet Package](https://img.shields.io/nuget/v/cookiemanager.svg)](https://www.nuget.org/packages/CookieManager/)
 
 # Features
