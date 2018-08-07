@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2E564887-0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieManager.Test", "test\CookieManager.Test\CookieManager.Test.csproj", "{36C88EF0-0210-44EA-A6A5-7ACE7C371224}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieManagerTest1", "C:\Users\nemic\Source\Repos\CookieManagerTest1\CookieManagerTest1.csproj", "{E04D5438-C628-424D-9B25-5AB5D40254FF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{36C88EF0-0210-44EA-A6A5-7ACE7C371224}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36C88EF0-0210-44EA-A6A5-7ACE7C371224}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36C88EF0-0210-44EA-A6A5-7ACE7C371224}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E04D5438-C628-424D-9B25-5AB5D40254FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E04D5438-C628-424D-9B25-5AB5D40254FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E04D5438-C628-424D-9B25-5AB5D40254FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E04D5438-C628-424D-9B25-5AB5D40254FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,7 +41,6 @@ Global
 		{3FFA196A-F0FA-4E58-B62D-35191A4CB3BB} = {A11570E5-2062-4BEA-A73D-EB835CDD8DA7}
 		{E2E42AB4-99E7-4899-9B8A-C98E8A158640} = {FC67A254-12A0-47CC-AA8E-26BA0E4C41CF}
 		{36C88EF0-0210-44EA-A6A5-7ACE7C371224} = {2E564887-0052-4B18-9356-79B958ADDDFE}
-		{E04D5438-C628-424D-9B25-5AB5D40254FF} = {FC67A254-12A0-47CC-AA8E-26BA0E4C41CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2731FC8E-8FA6-44E2-BB15-19B10CAD2EDC}
