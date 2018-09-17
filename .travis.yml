@@ -1,0 +1,16 @@
+language: csharp
+sudo: false
+dist: trusty
+dotnet: 2.1.300
+mono:
+  - latest
+install:
+- dotnet restore
+script:
+    - msbuild /p:Configuration=Release $TRAVIS_SOLUTION
+os:
+- linux
+- osx
+branches:
+  only:
+  - master
