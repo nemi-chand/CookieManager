@@ -6,8 +6,10 @@ mono:
   - latest
 install:
 - dotnet restore
+
 script:
-    - msbuild /p:Configuration=Release $TRAVIS_SOLUTION
+- dotnet build
+- dotnet test ./test/CookieManager.Test/CookieManager.Test.csproj
 os:
 - linux
 - osx
