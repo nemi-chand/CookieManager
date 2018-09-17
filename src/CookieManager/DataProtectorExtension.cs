@@ -13,7 +13,7 @@ namespace CookieManager
 				unProtectedData = dataProtector.Unprotect(protectedData);
 				return true;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 
 			}

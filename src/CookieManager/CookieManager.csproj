@@ -7,13 +7,15 @@
     <PackageProjectUrl>https://github.com/nemi-chand/CookieManager</PackageProjectUrl>
     <Description>ASP.Net Core Abstraction layer on top of Http Cookie</Description>
     <Authors>Nemi Chand</Authors>
-    <Version>2.0.0-pre</Version>
+    <Title>CookieManager : ASP.Net Core Abstraction layer on top of Http Cookie</Title>
+    <Version>2.0.0</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageTags>Cookie Manager,asp.net core cookie,cookie,http cookie,secure cookie</PackageTags>
     <PackageReleaseNotes>Added support netstandard 1.6 and netstandard 2.0</PackageReleaseNotes>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/nemi-chand/CookieManager/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">

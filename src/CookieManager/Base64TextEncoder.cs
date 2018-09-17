@@ -27,7 +27,7 @@ namespace CookieManager
 				plainText = Decode(encodedText);
 				return true;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 			}
 
