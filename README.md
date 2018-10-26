@@ -5,6 +5,7 @@ ASP.Net Core Abstraction layer on top of Cookie .  ASP.NET Core Wrapper to read 
 [![NuGet Package](https://img.shields.io/nuget/v/cookiemanager.svg)](https://www.nuget.org/packages/CookieManager/)
 
 ## Build Status
+
 | Build server| Platform | Status |
 |-------------|----------------|-------------|
 | AppVeyor    | Windows  | [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/nemi-chand/CookieManager?branch=master&svg=true)](https://ci.appveyor.com/project/nemi-chand/CookieManager/branch/master) | 
