@@ -1,0 +1,53 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+# We can run multiple jobs in parallel. For this project
+# I'm running Linux, Windows, and macOS jobs. For syntac details
+# see https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases
+jobs:
+
+# Linux Job
+- job: Linux Job
+
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  variables:
+    buildConfiguration: 'Release'
+
+  steps:
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+
+  # MacOS Job
+- job: MacOS Job
+
+  pool:
+    vmImage: 'xcode9-macos10.13'
+
+  variables:
+    buildConfiguration: 'Release'
+
+  steps:
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+
+
+    # Windos Job
+- job: Windows Job
+
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  variables:
+    buildConfiguration: 'Release'
+
+  steps:
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+
