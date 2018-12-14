@@ -41,6 +41,11 @@ jobs:
   steps:
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: test
+      projects: '**/*test/CookieManager.Test/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
 
 
     # Windos Job
@@ -55,4 +60,9 @@ jobs:
   steps:
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: test
+      projects: '**/*test/CookieManager.Test/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
 
