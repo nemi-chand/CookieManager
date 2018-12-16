@@ -10,6 +10,7 @@ ASP.Net Core Abstraction layer on top of Cookie .  ASP.NET Core Wrapper to read 
 |-------------|----------------|-------------|
 | AppVeyor    | Windows  | [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/nemi-chand/CookieManager?branch=master&svg=true)](https://ci.appveyor.com/project/nemi-chand/CookieManager/branch/master) | 
 |Travis       | Linux / MacOS  | [![Build Status](https://travis-ci.org/nemi-chand/CookieManager.svg?branch=master)](https://travis-ci.org/nemi-chand/CookieManager) |
+|Azure Pipelines | Windows / Linux / MacOS |[![Build Status](https://dev.azure.com/nemi-chand/CookieManager/_apis/build/status/nemi-chand.CookieManager?branchName=master)](https://dev.azure.com/nemi-chand/CookieManager/_build/latest?definitionId=1?branchName=master)
 
 # Features
 
