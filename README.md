@@ -12,6 +12,9 @@ ASP.Net Core Abstraction layer on top of Cookie .  ASP.NET Core Wrapper to read 
 |Travis       | Linux / MacOS  | [![Build Status](https://travis-ci.org/nemi-chand/CookieManager.svg?branch=master)](https://travis-ci.org/nemi-chand/CookieManager) |
 |Azure Pipelines | Windows / Linux / MacOS |[![Build Status](https://dev.azure.com/nemi-chand/CookieManager/_apis/build/status/nemi-chand.CookieManager?branchName=master)](https://dev.azure.com/nemi-chand/CookieManager/_build/latest?definitionId=1?branchName=master)
 
+## Give a Star! :star:
+If you like or are using this project please give it a star. Thanks!
+
 # Features
 
   - Strongly Typed : CookieManager interface allows you to play with generic object. You don't have to care about casting or serialization.
