@@ -46,10 +46,10 @@ public class MyCookie
   public string Indentifier { get; set; }
 }
 
-// get the myCookie object
+// Get the myCookie object
 MyCookie objFromCookie = _cookieManager.Get<MyCookie>("Key");
 
-//set the myCookie object
+// Set the myCookie object
 MyCookie cooObj= new MyCookie()
 {
   Id = Guid.NewGuid().ToString(),
@@ -58,11 +58,11 @@ MyCookie cooObj= new MyCookie()
 };
 _cookieManager.Set("Key", cooObj, 60);
 
-//Get or set <T>
-//Cookieoption example
+// Get or set <T>
+// CookieOption example
 MyCookie myCook = _cookieManager.GetOrSet<MyCookie>("Key", () =>
 {
-     //write fucntion to store  output in cookie
+     // Write function to store  output in cookie
      return new MyCookie()
      {
        Id = Guid.NewGuid().ToString(),
@@ -76,33 +76,33 @@ MyCookie myCook = _cookieManager.GetOrSet<MyCookie>("Key", () =>
 ### ICookie interface
 
 ```csharp
-//Gets a cookie item associated with key
+// Gets a cookie item associated with key
 _cookie.Get("Key");
 
-//Sets the cookie
+// Sets the cookie
 _cookie.Set("Key", "value here", new CookieOptions() { HttpOnly = true, Expires = DateTime.Now.AddDays(1) });
 
 ```
 
 ### Configure Option
-add CookieManager in startup class in Configure Service
+Add CookieManager in startup class in Configure Service
 ```csharp
-//add CookieManager
+// Add CookieManager
 services.AddCookieManager();
 
-//or
+// or
 
-//add CookieManager with options
+// Add CookieManager with options
 services.AddCookieManager(options => 
 {
-  //allow cookie data to encrypt by default it allow encryption
+  // Allow cookie data to encrypt by default it allow encryption
   options.AllowEncryption = false;
-  //Throw if not all chunks of a cookie are available on a request for re-assembly.
+  // Throw if not all chunks of a cookie are available on a request for re-assembly.
   options.ThrowForPartialCookies = true;
-  // set null if not allow to devide in chunks
+  // Set null if not allow to devide in chunks
   options.ChunkSize = null;
-  //Default Cookie expire time if expire time set to null of cookie
-  //default time is 1 day to expire cookie 
+  // Default Cookie expire time if expire time set to null of cookie
+  // Default time is 1 day to expire cookie 
   options.DefaultExpireTimeInDays = 10;
 });
 ```
