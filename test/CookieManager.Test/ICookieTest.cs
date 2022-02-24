@@ -3,19 +3,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Microsoft.Net.Http.Headers;
 using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xunit;
 
 namespace CookieManager.Test
 {
-    public class UnitTest1
+    [TestFixture]
+    public class CookieTests
     {
 		const string expectedTestString = "6K68sp5NupOcKWTwyaXvkqJ7s5JHZQiWfOI8mzehtq3eXQd3hv8mVjln51tak1iqBCHKQCo8IzQCilvjcfLXInzq7gpoYQ9mN6KffSgVd6IIqDVFaoL1Asl6n0MeCWXxapdLHDDapVzcA6LQ9LwA3L59vHj0vyJB1FEIpkenUtMPCQYXXw2TYq2VpZAGltHuOHz990aNPOEX3Hvr7Xk9onVAb1qgSdUsTvFe5UxCxe7RkrsskM5nx451glen3NPUM2M445pMLi3kA5rfDhk6brkDnoSdsjbyuJalxPMnfluVKFnoO36DwbwKPSGnDgxK3qk6spifXbkbXhkQzZQGpKTIcW1cRNLUs0QWuRPliNLAJiqYoPbQQOOYqgthhAnW8HxTf850iLtxpEtGtNy9t3SkHzmZsGVQdw4kv5HYXaf9svNnhM3COFiPNL3WvbVPuf3qrkQ2pgEqNd4DF11QcHpcbKUMJjM8VE82O3313joAQvrVWZ0JZfO7SKck10bj77sILYkjhoF00l5W4soRmxwVQ3yMtZ1PbzJrOOT3u7rXGkKO6YAn4dZ2u54mw4lftiB47GKi6nfelilXCpeH6AlIOYWHndaeE1medyfARIRWSF0bbwBgz5Yai7DbGHGwY0NeDMUyOHTKd8GDQbRTOgzRVKe3q6pDJ3YRNys8hSL6LXD7FfvEDidk9uJNUhthuCOaCCiQSjTjxlV3G59WKye9lTWAnX1iWM8fVLdH86m4DUhri3PZH1wsp8hBtP1rLD0pqQddpnUQ4XCnzyCzKOdCXATettbbTEWDg7yd3LrVWLokr40cwgoTOGzir5lt1OJbrFBosk5h4fZP55Bllgcc6RKc1NTn6Hx7fXwN0OkMU0l4EWa95ZAOlujzCQ86q0sklIJy5J145pJxb5e3CJWiikhDADYHwaCPTwmIVF4AVZEv0B2y7TyeLHL8aS8Pbqp7NUg7y2TC1oWutlGF0L9ShuMWeZ8TTlU4sCA56CcyG5ZVpXYC8XmlkWPPI2fPUDJfFEK5HM4czc4TCyW0Paqq3QuhA6LdWC1ydiY1MfgcG16khBmcZE5f7KyaEOpuaHtjk8KzRatlX3nAvKHoZyBYZGBMZyoQ4eYoLydPIf8gxKuNJt30w0UeBxv095vybPqMHSmtmkh15xm1k6NWiYRnNmfCoOwdP9kE98GYzJBhiYkKN9sm38VRXekIzAM3ZusNqqGrSLlthKO3a5IG9pC99NuPvj685eCIKOTIQNWoKCjF8wfG3vpQL4MwZwMl0eshi4plgCDZW4UEzAH32yp5g6oku9L3aV9077oqKFzL4NlnlPnhrfcFb8PmosFdiOOOTKDM2ytlKgqRqnu0s5HiWT4mEhjcxHVd1Ir5VbBDTLzrb8b3G6cbH1aE0zRRFKRZge6Llur5d6RE3htQpwBjhCEpGXkRA9unaPpqLBsPeTD9i7PoBfZJAVPVQYn4HWkAiCQJPF46cNwePxTqZp0eQDE0BxGXo86AFWsNCJvFoe26W72x25jHY7J2JP7mt6VrQBMVVW0EeUmKj7pvamB8OMtf2PKgvuty9t3MJPz3EkiYP7QzMBqsBA71qKHfRjCExjkSLvxQ07pebzwzb09cDEQUzHcMOygp0bQaiu4RjdhsdD2KmgbIDwubL1lj4qtPylki9XifPoziJflN3OTH4k5l85RsxxcBMsLOUFeZ5BFOhcYWiGQkzeeXh6hEfR7M1nbIQn0JN9dH7ETJb38Xs27DlDmxZPAWh4dyC29xKCOofrhz6Jy3bXHQmOPRlfUgZEQSVwKi8ZKjenrx0AeQqyAuwwRlUv0Yc3T6NBTWOI1epP71JKCsvbQytFFtOmqNCMjDqMVxQj7Pof47RY7oQvDKQQGHsx6kID8f038NgXnHuCUgRmnG0IOrHy8AY753INv1T65D0bB0nqtISvum0HMgwyhlamInZt9iEsyob20FmWhQIJZWaKVk5ebD9rek1toCJvLQX2v3mV3NSXtL1q07mgWAg8bQFEkit8JWRax1ncVjM1u6nZM7cmqh8ZFkTAdlvrHf4QCvcKrVAPNAKW6QIKvvu22K9LhdMET4d56wI1AISivAEpP9Ye71TK92IQ7zKOLsEl4hp6SHLMWwmfgB3a9riri5gTsJT3ttOhhSIL2REORGQa3Ux4PqxJyf6QjdRlqiGfgU6YJf7M2i1C0RKyEFGGWSXg5byFAzzqAoCMEtdYBt04SmEs6Yd4TToJ0mN1FCelDTeJ5Lssm7gpTBjTPKAhqueB4pHFIkeSXA77yVhlAMFT6t9OZ3aham0GJDnL4Jjz5MLZHiVwPcbbrEXv27Ce8a05rGstKPkZ73xiCQBUr2dsfJySYrIhgYNqIeGL8tfzFa8Uzo1NMj0uBAkitMPwzgY32VFXqR2SOzPtISuTNyxDiCqVgNL6TvrwUCCscUzsp6bF1qEyKw4tgyDwSeJtZofDRr3GhQGhM5JYxbngM8OmOJp6QXcBo7drl6D4TYlBfFwD2YR4QOUFY8qkaJZ28uw2uvZnoACPI0ZVqK8nGVkqySuhaF0pUakfWuLa0vbEqBVn27x0W8Zyx25fptF3jeZJCgA6hTrVatkTkc4XHEV8yP6yLWLIjV2rsjJ7fYlTjPhC3GUVQ3gGnDGkRWtjIzmGMEHIdKTMWk0kREzmTbij6CX83O1HELX8Ypec358MHx7JX6jL0RkFRdYNnxDuRhCgwVN7dMMWnUFQjU87lTSlCAn8IfPWu6eULUp6HtGTyYwDxP6ZaGKiYBH5YIu2bdpA1N04cPBelhKG7eT2KgORnNyYxlqVjYVCQx7ykSKWTUE8ybwZsDVKk4ECEPfDd6hefChnptj4IHjFxCLgSTF7xqOUi6TRbcemUgs01EWuJgqhmeaZLHmDCL0dPcU0eumEKEyo16GTZOkgznEoIgts6nK7Fp8uAxbtG3SFA6MmBB2PoyMqUs77IAZlCnZehdktX2Lqrp8VYZOSOwvOd8Nfb0deOkFVjVUzLw97GKx8hZdEhsNUfEkEEcL3UyPYD8yQXKdKjCs4ndDNtskKRMduDKMn3aNDorRyvNpZUtQOfpt0ROkdYfcRFCtBgejh8jgJei2bumjimtmTfydnlGzlxWkZguvfmBr4mgCzK6YuqUgsWVgWJ8W30TmiRV7CTpIPjEQpD7M7KmNKtwkwDPAPLzXILQC8AWa5Ct596RXlt12hLGL88FppFbl1E1E0BJ4N0CqJ8L1mwzFb8zreJd7YfMO3L9mC7uoGB9uXAlO1m2UYfxcyJf9zTymAKRf3mXivdu2jj9na0tL3VMD03rvjDmDDjgxUpCrCvmbC1R38vsLWbrGzoh6oAt1mUhP02d3EcGF24kKJef4w6Yo2oYOoiu7yP1J6H4Qw8BCpueHbIp2gHbDurnO6xhT3wbG2rZO5igdYjrBgEZwEkK2JsHFh3AN39ZQu647VklalZ142G3HGpfVwpafAfnebWgjesbhwT7n2jGYdCcvkaeKbhOLhpAAvVYcTgx3ZEKgAkHEgj4ZQTAOBp5sD8rmsBevCL7CoiEA565jcILYbjcB69VvdGxTCGAvfoUtqZJFopvnWwdlS42h5XF9nYvHvffrnFhYvJQLs130Z7U84JrwSKxsmBsLuIMT9soJeMHpMNcczlORSYiYtRkmu8ntgP5PAwUDQqmdBwZKIssAgjKPgmBQVyTPqU962cyduvwehnoXhuEhKZrSpI36cJWvh3wkWthK8h7YsvoZjiQNP6nxhZ5Wse8xQ5nzJekQF8lz3qNdYkgd5ZuIviqDQeCz7WOsb0wRoiX4Ta0ePB3XC6atxs9dTW2TYJYDL4T7kMb3JvxpzxlCdE8ihN0S7ybgw1ZsVhpyDKqKFZeytMIIBHIllKsIxotRmNiccjGcnCFL4jcwQoxeTg5ha9wtb1iZe8R9WKZDa7nzqRfkR5uFQrNocym2DtXbiyeafs6NfM1M56EUgGDB5dKD4yVbwQbhYWs1yT36FaS3xVD16egInievyM2kWXjsgQRC3aWUvq3cq6wnI8hffXSGrRAGJ46JPUm0gBlWgXGoQWvQiKkz75CU5lvY643qVP68KQetff8E683geD523g6i3Qxa3V9dJRRP0uuCcC57W2AN7oWHf4OdDuNHNXQEd81n5QsRolGfjFP2GqJnprfHm9eX4pETsM0Rmdlwf0SFFThzgNn74WsJBB6HpNXlkfwJGM2sJM1xpzFJxHMLn0iQyDlXngRad3ttjqxkgwHHHArTRT0SCzdHYEcauiVuIZJVAHmOgy3WGilzRhLBQUdBYAPO3eO07whkuQhuN0rKQIsAgKAuBLwrMzYz38nejxJdA5mBnAqf0eoxBOVFnyGcCtQXzgM1GJT5hrx0yPzaq4ES1I3T0jTj5xtF2PJiZ2ZMO4iHhvvDQyIwy2ilLJdVKv02Nnr1H4IDB0xSLCvfDLVztw43C1SteP9KPiGSJiPjBkjsggTyBa44jARVZOMISZdda0he2TYFPYZkEuHxwjWpzfXLFil0pCnp8T6DgkEkPtgNeWRWFqhN3Y8f5gkomifSOtgeLOcKVaaPrD4e4pw1CvHRbxMrN0KneBpzzznkrAfyTXyuDAqAelfAm1qtmAihWk3EaqeGlgfj9ZfhI9IKr6V6IBUn1qt3OhX837Ta9mLrMtYfgmAw93UJv9hsyRRO50LD2VlwEMwgesv9uAjQUMI4KD008MKEqSbDrPh0iVf4bkaZwrSOZaFQBkTBazgHhd5RqG2l63dk9dMk8CWj7ipd3Z42UQd1dv5kv7HF44d4T326UX7MwXBIoUeIUwA76cAKsELdjkNBAy0NPoy0iym1bo4lWjzb3URTHA3MLkbOiAFi68Q4Tv124dl7LeRC4e6WsvOy89bL3txsrQ7Y4JAZ6xsRJdCSxAwakvF7xWAjGnKBrx2aZAmEgeyvyAEECzdITLArm3OvU9WKKlMd74244iOZaAQcSLh7ct1vd27XNms";
-		public static Dictionary<string,string> cookieRequestHeaderList
+		private static Dictionary<string,string> cookieRequestHeaderList
 		{
 			get
 			{
@@ -43,7 +43,7 @@ namespace CookieManager.Test
 			}
 		}
 
-		public static Dictionary<string, StringValues> cookieResponseHeaders
+		private static Dictionary<string, StringValues> cookieResponseHeaders
 		{
 			get
 			{
@@ -53,9 +53,9 @@ namespace CookieManager.Test
 			}
 		}
 
-		public HttpContext httpContext { get; set; }
+		private HttpContext httpContext { get; set; }
 
-		public ICookie setupICookie()
+		private ICookie setupICookie()
         {			
 			//Mock IHttpContextAccessor
 			var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
@@ -91,51 +91,51 @@ namespace CookieManager.Test
 			return cookie;
 		}
 
-		[Fact]
-		private void Cookie_ContainsTest()
+		[Test]
+		public void Cookie_ContainsTest()
 		{
 			ICookie cookie = setupICookie();
 			Assert.True(cookie.Contains("cookiemanager_1"));
 			Assert.True(cookie.Contains("cookiemanager_5"));
 		}
 
-		[Fact]
-		private void Cookie_GetTest()
+		[Test]
+		public void Cookie_GetTest()
 		{
 			ICookie cookie = setupICookie();
 			var expectedValue1 = cookieRequestHeaderList["cookiemanager_1"];
 			var expectedValue5 = cookieRequestHeaderList["cookiemanager_5"];
 
-			Assert.Equal(expectedValue1, cookie.Get("cookiemanager_1"));
-			Assert.Equal(expectedValue5, cookie.Get("cookiemanager_5"));
+			Assert.AreEqual(expectedValue1, cookie.Get("cookiemanager_1"));
+			Assert.AreEqual(expectedValue5, cookie.Get("cookiemanager_5"));
 		}
 
-		[Fact]
-		private void Cookie_GetPlainChunksTest()
+		[Test]
+		public void Cookie_GetPlainChunksTest()
 		{
 			ICookie cookie = setupICookie();			
 			string actualString = cookie.Get("cm_key1");
-			Assert.Equal(expectedTestString, actualString);
+			Assert.AreEqual(expectedTestString, actualString);
 		}
 
-		[Fact]
-		private void Cookie_GetEncryptedChunksTest()
+		[Test]
+		public void Cookie_GetEncryptedChunksTest()
 		{
 			//TODO getting null value of data protector
 			ICookie cookie = setupICookie();
 			string actualString = cookie.Get("encrypted_key1");
-			Assert.Equal(expectedTestString, actualString);
+			Assert.AreEqual(expectedTestString, actualString);
 		}
 
-		[Fact]
-		private void Cookie_SetCookieTest()
+		[Test]
+		public void Cookie_SetCookieTest()
 		{
 			//TODO getting null value of data protector
 			ICookie cookie = setupICookie();
 			string expecteSetCookie = cookieResponseHeaders["cookiemanager_1"];
 			cookie.Set("cookiemanager_1", "test1234", new CookieOptions() { Expires = new DateTimeOffset(2020,09,02,23,19,18,TimeSpan.Zero)});
 			var actualString = httpContext.Response.Headers["cookiemanager_1"];
-			Assert.Equal(expecteSetCookie, actualString);
+			Assert.AreEqual(expecteSetCookie, actualString);
 		}
 	}
 }
