@@ -1,6 +1,8 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Http;
+using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using System;
 
 namespace CookieManager.Test
 {
@@ -78,6 +80,43 @@ namespace CookieManager.Test
             cookieManager.Remove("test");
             //Verfiy
             mockICookie.Verify(ex => ex.Remove(It.IsAny<string>()), Times.Once);
+        }
+
+        [Test]
+        public void GetOrSet_NotContains_StringTests()
+        {
+            var cookieManager = GetCookieManager();
+            mockICookie.Setup(ex => ex.Contains("test")).Returns(false);
+
+            var actualResult = cookieManager.GetOrSet<string>("test", () => 
+            {
+                return "it works";
+            });
+
+            Assert.AreEqual("it works", actualResult);
+            //Verfiy
+            mockICookie.Verify(ex => ex.Contains("test"), Times.Once);
+            mockICookie.Verify(ex => ex.Get("test"), Times.Never);
+
+        }
+
+        [Test]
+        public void GetOrSet_Contains_StringTests()
+        {
+            var cookieManager = GetCookieManager();
+            mockICookie.Setup(ex => ex.Contains("test")).Returns(true);
+            mockICookie.Setup(ex => ex.Get("test")).Returns("\"it works\"");
+
+            var actualResult = cookieManager.GetOrSet<string>("test", () =>
+            {
+                return "it works";
+            });
+
+            Assert.AreEqual("it works", actualResult);
+            //Verfiy
+            mockICookie.Verify(ex => ex.Contains("test"), Times.Once);
+            mockICookie.Verify(ex => ex.Get("test"), Times.Once);
+
         }
 
 
