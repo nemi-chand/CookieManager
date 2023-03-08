@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CookieManager
 {
@@ -13,7 +11,7 @@ namespace CookieManager
 	/// </summary>
 	public class HttpCookie : ICookie
     {
-        private readonly HttpContext _httpContext;
+		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly IDataProtector _dataProtector;
 		private static readonly string Purpose = "CookieManager.Token.v1";
 		private readonly CookieManagerOptions _cookieManagerOptions;
@@ -21,17 +19,17 @@ namespace CookieManager
 
 
 
-		/// <summary>
-		/// External depedenacy of <see cref="IHttpContextAccessor" /> 
-		/// </summary>
-		/// <param name="httpAccessor">IHttpAccessor</param>
-		/// <param name="dataProtectionProvider">data protection provider</param>
-		/// <param name="optionAccessor">cookie manager option accessor</param>
-		public HttpCookie(IHttpContextAccessor httpAccessor, 
+        /// <summary>
+        /// External depedenacy of <see cref="IHttpContextAccessor" /> 
+        /// </summary>
+        /// <param name="httpContextAccessor">IHttpAccessor</param>
+        /// <param name="dataProtectionProvider">data protection provider</param>
+        /// <param name="optionAccessor">cookie manager option accessor</param>
+        public HttpCookie(IHttpContextAccessor httpContextAccessor, 
 			IDataProtectionProvider dataProtectionProvider,
 			IOptions<CookieManagerOptions> optionAccessor)
         {
-            _httpContext = httpAccessor.HttpContext;
+            _httpContextAccessor = httpContextAccessor;
 			_dataProtector = dataProtectionProvider.CreateProtector(Purpose);
 			_cookieManagerOptions = optionAccessor.Value;
 			_chunkingHttpCookie = new ChunkingHttpCookie(optionAccessor);
@@ -41,20 +39,20 @@ namespace CookieManager
 		{
 			get
 			{
-				if(_httpContext == null)
+				if(_httpContextAccessor.HttpContext == null)
 				{
-					throw new ArgumentNullException(nameof(_httpContext));
+					throw new ArgumentNullException(nameof(_httpContextAccessor.HttpContext));
 				}
 
-				return _httpContext.Request.Cookies.Keys;
+				return _httpContextAccessor.HttpContext.Request.Cookies.Keys;
 			}
 		}
 
         public bool Contains(string key)
         {            
-			if(_httpContext == null)
+			if(_httpContextAccessor.HttpContext == null)
 			{
-				throw new ArgumentNullException(nameof(_httpContext));
+				throw new ArgumentNullException(nameof(_httpContextAccessor.HttpContext));
 			}
 
 			if(key == null)
@@ -62,7 +60,7 @@ namespace CookieManager
 				throw new ArgumentNullException(nameof(key));
 			}
 
-            return _httpContext.Request.Cookies.ContainsKey(key);
+            return _httpContextAccessor.HttpContext.Request.Cookies.ContainsKey(key);
         }
 
 		/// <summary>
@@ -72,9 +70,9 @@ namespace CookieManager
 		/// <returns>value</returns>
         public string Get(string key)
         {
-			if (_httpContext == null)
+			if (_httpContextAccessor.HttpContext == null)
 			{
-				throw new ArgumentNullException(nameof(_httpContext));
+				throw new ArgumentNullException(nameof(_httpContextAccessor.HttpContext));
 			}
 
 			if (key == null)
@@ -84,7 +82,7 @@ namespace CookieManager
 
 			if (Contains(key))
 			{
-				var encodedValue = _chunkingHttpCookie.GetRequestCookie(_httpContext, key);
+				var encodedValue = _chunkingHttpCookie.GetRequestCookie(_httpContextAccessor.HttpContext, key);
 				var protectedData = string.Empty;
 				//allow encryption is optional
 				//may change the allow encryption to avoid this first check if cookie value is able to decode than unprotect tha data
@@ -108,9 +106,9 @@ namespace CookieManager
 		/// <param name="key">Key</param>
         public void Remove(string key)
         {
-			if (_httpContext == null)
+			if (_httpContextAccessor.HttpContext == null)
 			{
-				throw new ArgumentNullException(nameof(_httpContext));
+				throw new ArgumentNullException(nameof(_httpContextAccessor.HttpContext));
 			}
 
 			if (key == null)
@@ -118,7 +116,7 @@ namespace CookieManager
 				throw new ArgumentNullException(nameof(key));
 			}
 
-			_chunkingHttpCookie.RemoveCookie(_httpContext, key);
+			_chunkingHttpCookie.RemoveCookie(_httpContextAccessor.HttpContext, key);
         }
 
 		/// <summary>
@@ -129,15 +127,15 @@ namespace CookieManager
 		/// <param name="expireTime">Expire time (default time is 10 millisencond)</param>
         public void Set(string key, string value, int? expireTime)
         {
-			//validate input TODO
-			if (_httpContext == null)
+			//validate input
+			if (_httpContextAccessor.HttpContext == null)
 			{
-				throw new ArgumentNullException(nameof(_httpContext));
+				throw new ArgumentNullException(nameof(_httpContextAccessor.HttpContext));
 			}
 
-			if (key == null)
+			if (string.IsNullOrEmpty(key))
 			{
-				throw new ArgumentNullException(nameof(key));
+				throw new ArgumentException(nameof(key));
 			}
 
 			Set(key, value, null, expireTime);
@@ -151,9 +149,9 @@ namespace CookieManager
 		/// <param name="option">CookieOption</param>
 		public void Set(string key, string value, CookieOptions option)
 		{
-			if(_httpContext == null)
+			if(_httpContextAccessor.HttpContext == null)
 			{
-				throw new ArgumentNullException(nameof(_httpContext));
+				throw new ArgumentNullException(nameof(_httpContextAccessor.HttpContext));
 			}
 
 			if(key == null)
@@ -186,12 +184,12 @@ namespace CookieManager
 			{
 				string protecetedData = _dataProtector.Protect(value);
 				var encodedValue = Base64TextEncoder.Encode(protecetedData);
-				_chunkingHttpCookie.AppendResponseCookie(_httpContext, key, encodedValue, option);
+				_chunkingHttpCookie.AppendResponseCookie(_httpContextAccessor.HttpContext, key, encodedValue, option);
 			}
 			else
 			{
 				//just append the cookie 
-				_chunkingHttpCookie.AppendResponseCookie(_httpContext, key, value, option);
+				_chunkingHttpCookie.AppendResponseCookie(_httpContextAccessor.HttpContext, key, value, option);
 			}
 			
 		}
