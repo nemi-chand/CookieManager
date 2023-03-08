@@ -21,7 +21,9 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-  - script: dotnet build --configuration $(buildConfiguration)
+  - script: dotnet restore
+    displayName: 'dotnet restore'
+  - script: dotnet build --configuration $(buildConfiguration) --no-restore
     displayName: 'dotnet build $(buildConfiguration)'
   - task: DotNetCoreCLI@2
     inputs:
@@ -39,7 +41,9 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-  - script: dotnet build --configuration $(buildConfiguration)
+  - script: dotnet restore
+    displayName: 'dotnet restore'
+  - script: dotnet build --configuration $(buildConfiguration) --no-restore
     displayName: 'dotnet build $(buildConfiguration)'
   - task: DotNetCoreCLI@2
     inputs:
@@ -58,7 +62,9 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-  - script: dotnet build --configuration $(buildConfiguration)
+  - script: dotnet restore
+    displayName: 'dotnet restore'
+  - script: dotnet build --configuration $(buildConfiguration) --no-restore
     displayName: 'dotnet build $(buildConfiguration)'
   - task: DotNetCoreCLI@2
     inputs:
